@@ -1,13 +1,19 @@
+// frontend/src/services/api.js
 import axios from "axios";
-const API_URL = "http://localhost:8080/api/employees"; // Ensure this is correct
-export const getEmployees = async () => {
-    return await axios.get(API_URL);
-};
-export const addEmployee = async (employee) => {
-    return await axios.post(API_URL, employee, {
-        headers: { "Content-Type": "application/json" }, // Ensure core headers
+
+const JOB_POSTING_API = "http://localhost:8081/api/jobpostings";
+const COURSE_API = "http://localhost:8081/api/courses";
+
+export const postJob = async (jobData) => {
+    return await axios.post(JOB_POSTING_API, jobData, {
+        headers: { "Content-Type": "application/json" },
     });
 };
-export const deleteEmployee = async (id) => {
-    return await axios.delete(`${API_URL}/${id}`);
+
+export const getCourses = async (filter) => {
+    let url = COURSE_API;
+    if(filter) {
+        url += `?courseName=${filter}`;
+    }
+    return await axios.get(url);
 };
