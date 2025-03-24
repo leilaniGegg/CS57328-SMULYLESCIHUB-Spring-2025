@@ -5,41 +5,48 @@ import axios from 'axios';
 const StudentFilterClasses = () => {
     const [courseNumber, setCourseNumber] = useState('');
     const [courseName, setCourseName] = useState('');
-    const [courses, setCourses] = useState([]);
+    const [skill, setSkill] = useState('');               // new filter input for skill
+    const [instructorName, setInstructorName] = useState(''); // new filter input for instructor name
+    const [standing, setStanding] = useState('');           // new filter input for standing
+    const [jobPostings, setJobPostings] = useState([]);
 
-    const fetchCourses = async () => {
+    const fetchJobPostings = async () => {
         try {
-            // Build query parameters
-            let url = 'http://localhost:8081/api/courses?';
+            let url = 'http://localhost:8081/api/jobpostings?';
             if (courseNumber) {
                 url += `courseNumber=${courseNumber}&`;
             }
             if (courseName) {
                 url += `courseName=${courseName}&`;
             }
-            // add skill/standing filters
-
+            if (skill) {
+                url += `skill=${skill}&`;
+            }
+            if (instructorName) {
+                url += `instructorName=${instructorName}&`;
+            }
+            if (standing) {
+                url += `standing=${standing}&`;
+            }
             const response = await axios.get(url);
-            setCourses(response.data);
+            setJobPostings(response.data);
         } catch (error) {
             console.error(error);
-            alert('Error fetching courses.');
+            alert('Error fetching job postings.');
         }
     };
 
     useEffect(() => {
-        // You could auto-fetch or let the user click a button
-        fetchCourses();
-        // eslint-disable-next-line
+        fetchJobPostings();
     }, []);
 
     const handleFilter = () => {
-        fetchCourses();
+        fetchJobPostings();
     };
 
     return (
         <div>
-            <h2>Filter Classes</h2>
+            <h2>Filter TA Job Postings</h2>
             <div>
                 <label>Course Number:</label>
                 <input
@@ -56,14 +63,40 @@ const StudentFilterClasses = () => {
                     onChange={(e) => setCourseName(e.target.value)}
                 />
             </div>
+            <div>
+                <label>Skill:</label>
+                <input
+                    type="text"
+                    value={skill}
+                    onChange={(e) => setSkill(e.target.value)}
+                />
+            </div>
+            <div>
+                <label>Instructor Name:</label>
+                <input
+                    type="text"
+                    value={instructorName}
+                    onChange={(e) => setInstructorName(e.target.value)}
+                />
+            </div>
+            <div>
+                <label>Standing (Freshman, Sophmore, Junior, Senior, Graduate):</label>
+                <input
+                    type="text"
+                    value={standing}
+                    onChange={(e) => setStanding(e.target.value)}
+                />
+            </div>
             <button onClick={handleFilter}>Filter</button>
 
             <div>
-                <h3>Available Courses:</h3>
+                <h3>Available TA Job Postings:</h3>
                 <ul>
-                    {courses.map(course => (
-                        <li key={course.courseNumber}>
-                            {course.courseNumber} - {course.courseName} : {course.description}
+                    {jobPostings.map(posting => (
+                        <li key={posting.jobid}>
+                            {posting.course.courseNumber} - {posting.course.courseName} : {posting.jobDetails}
+                            <br />
+                            Faculty: {posting.facultyName} (Email: {posting.facultyEmail})
                         </li>
                     ))}
                 </ul>

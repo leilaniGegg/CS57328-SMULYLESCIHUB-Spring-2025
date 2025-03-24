@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const FacultyPostJob = () => {
     const [facultyName, setFacultyName] = useState('');
+    const [facultyEmail, setFacultyEmail] = useState(''); // new state for email
     const [courseNumber, setCourseNumber] = useState('');
     const [requiredCourses, setRequiredCourses] = useState('');
     const [skills, setSkills] = useState('');
@@ -15,10 +16,8 @@ const FacultyPostJob = () => {
     const handleStandingChange = (e) => {
         const value = e.target.value;
         if (selectedStandings.includes(value)) {
-            // remove it
             setSelectedStandings(selectedStandings.filter(s => s !== value));
         } else {
-            // add it
             setSelectedStandings([...selectedStandings, value]);
         }
     };
@@ -32,12 +31,13 @@ const FacultyPostJob = () => {
 
         const jobData = {
             facultyName,
+            facultyEmail, // include faculty email
             course: { courseNumber },
             requiredCourses: requiredCoursesArray,
             skills,
             standings: selectedStandings,
             jobDetails,
-            createdDate: new Date() // let backend convert if necessary
+            createdDate: new Date()
         };
 
         try {
@@ -61,6 +61,15 @@ const FacultyPostJob = () => {
                         type="text"
                         value={facultyName}
                         onChange={(e) => setFacultyName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Faculty Email:</label><br />
+                    <input
+                        type="email"
+                        value={facultyEmail}
+                        onChange={(e) => setFacultyEmail(e.target.value)}
                         required
                     />
                 </div>

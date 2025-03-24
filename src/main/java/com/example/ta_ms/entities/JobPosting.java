@@ -1,10 +1,10 @@
 package com.example.universityta.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
 
 @Entity
 @Table(name = "job_postings")
@@ -14,25 +14,25 @@ public class JobPosting {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int jobid;
 
-    private String facultyName; // changed from facultyId
+    private String facultyName;
+    private String facultyEmail; // new field for faculty’s email
 
-    @OneToOne
-    @JoinColumn(name = "course_number")  // matches Course.courseNumber
+    // Use CascadeType.ALL so that if a course is new, it is persisted.
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_number", nullable = false)
     private Course course;
 
-    // A many-to-many table that links a job posting to multiple required courses
-    @ManyToMany
+    // Cascade persist/merge on required courses as well.
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "jobposting_required_courses",
             joinColumns = @JoinColumn(name = "jobposting_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_number")
+            inverseJoinColumns = @JoinColumn(name = "required_course_number")
     )
     private Set<Course> requiredCourses = new HashSet<>();
 
-    // A simple string for listing skills (could also use @ElementCollection if multiple)
     private String skills;
 
-    // A set of possible standings (Freshman, Sophomore, Junior, Senior, Graduate)
     @ElementCollection
     @CollectionTable(
             name = "jobposting_standings",
@@ -42,13 +42,18 @@ public class JobPosting {
     private Set<String> standings = new HashSet<>();
 
     private String jobDetails;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date createdDate;
 
     // Constructors
-    public JobPosting() {}
+    public JobPosting() {
+    }
 
-    public JobPosting(String facultyName, Course course, String jobDetails, Date createdDate) {
+    public JobPosting(String facultyName, String facultyEmail, Course course, String jobDetails, Date createdDate) {
         this.facultyName = facultyName;
+        this.facultyEmail = facultyEmail;
         this.course = course;
         this.jobDetails = jobDetails;
         this.createdDate = createdDate;
@@ -69,6 +74,14 @@ public class JobPosting {
 
     public void setFacultyName(String facultyName) {
         this.facultyName = facultyName;
+    }
+
+    public String getFacultyEmail() {
+        return facultyEmail;
+    }
+
+    public void setFacultyEmail(String facultyEmail) {
+        this.facultyEmail = facultyEmail;
     }
 
     public Course getCourse() {
@@ -125,8 +138,9 @@ public class JobPosting {
     }
 
     public String getPostingInfo() {
+        String courseNum = (course != null) ? course.getCourseNumber() : "[NULL COURSE]";
         return "Job ID: " + jobid +
-                " for course " + (course != null ? course.getCourseNumber() : "N/A") +
+                " for course " + courseNum +
                 ". Details: " + jobDetails;
     }
 }
