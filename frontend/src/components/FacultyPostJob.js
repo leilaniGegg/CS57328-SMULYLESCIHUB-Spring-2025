@@ -1,8 +1,8 @@
-// PostJobController.js
+// FacultyPostJob.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const PostJobController = () => {
+const FacultyPostJob = () => {
     // State for course submission
     const [courseNumberAdd, setCourseNumberAdd] = useState('');
     const [courseNameAdd, setCourseNameAdd] = useState('');
@@ -230,4 +230,4 @@ const PostJobController = () => {
     );
 };
 
-export default PostJobController;
+export default FacultyPostJob;
