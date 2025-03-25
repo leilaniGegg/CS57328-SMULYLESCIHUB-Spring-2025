@@ -1,6 +1,4 @@
-// PostJobController.java
 package com.example.universityta.controllers;
-
 
 import com.example.universityta.entities.Course;
 import com.example.universityta.entities.JobPosting;
@@ -9,41 +7,36 @@ import com.example.universityta.services.JobPostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/api/jobpostings")
 public class PostJobController {
 
-
     @Autowired
     private JobPostingService jobPostingService;
-
 
     @Autowired
     private CourseRepository courseRepository;
 
-
     @PostMapping
     public JobPosting createJobPosting(@RequestBody JobPosting jobData) {
-        // Check if the primary course exists. If yes, attach it from the database.
+        // Ensure the primary course exists in the database.
         if (jobData.getCourse() != null && jobData.getCourse().getCourseNumber() != null) {
             Course existingCourse = courseRepository.findById(jobData.getCourse().getCourseNumber()).orElse(null);
             if (existingCourse != null) {
                 jobData.setCourse(existingCourse);
             } else {
-                // If the course doesn't exist, create and persist it using provided details.
+                // Create and persist the new course.
                 Course newCourse = new Course(
                         jobData.getCourse().getCourseNumber(),
-                        jobData.getCourse().getCourseName(),       // expecting course name from the front end
-                        jobData.getCourse().getDescription()         // expecting course description from the front end
+                        jobData.getCourse().getCourseName(),
+                        jobData.getCourse().getDescription()
                 );
                 courseRepository.save(newCourse);
                 jobData.setCourse(newCourse);
             }
         }
 
-
-        // For each required course, check if it exists to avoid duplicate entries.
+        // For each required course, ensure we use the persisted version.
         if (jobData.getRequiredCourses() != null && !jobData.getRequiredCourses().isEmpty()) {
             jobData.setRequiredCourses(
                     jobData.getRequiredCourses().stream().map(course -> {
@@ -55,8 +48,7 @@ public class PostJobController {
             );
         }
 
-
-        // Save job posting. Cascade settings will persist any new course data.
+        // Save and return the job posting.
         return jobPostingService.saveJobPosting(jobData);
     }
 }
