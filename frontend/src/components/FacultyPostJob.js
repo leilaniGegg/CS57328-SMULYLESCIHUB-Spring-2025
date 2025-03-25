@@ -167,23 +167,6 @@ const FacultyPostJob = () => {
                         />
                     </div>
                     <div>
-                        <label>Course Name:</label><br />
-                        <input
-                            type="text"
-                            value={courseName}
-                            onChange={(e) => setCourseName(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Course Description:</label><br />
-                        <textarea
-                            value={courseDescription}
-                            onChange={(e) => setCourseDescription(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
                         <label>Required Courses (comma-separated):</label><br />
                         <input
                             type="text"
