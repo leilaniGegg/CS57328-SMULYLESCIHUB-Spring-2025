@@ -1,4 +1,4 @@
-package com.example.universityta.entities;
+package com.example.ta_ms.entities;
 
 import jakarta.persistence.*;
 

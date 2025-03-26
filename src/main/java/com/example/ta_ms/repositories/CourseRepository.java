@@ -1,6 +1,6 @@
-package com.example.universityta.repositories;
+package com.example.ta_ms.repositories;
 
-import com.example.universityta.entities.Course;
+import com.example.ta_ms.entities.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 

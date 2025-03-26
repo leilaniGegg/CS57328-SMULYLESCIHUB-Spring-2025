@@ -1,9 +1,9 @@
-package com.example.universityta.controllers;
+package com.example.ta_ms.controllers;
 
-import com.example.universityta.entities.Course;
-import com.example.universityta.entities.JobPosting;
-import com.example.universityta.repositories.CourseRepository;
-import com.example.universityta.services.JobPostingService;
+import com.example.ta_ms.entities.Course;
+import com.example.ta_ms.entities.JobPosting;
+import com.example.ta_ms.repositories.CourseRepository;
+import com.example.ta_ms.services.JobPostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +41,15 @@ public class PostJobController {
             jobData.setRequiredCourses(
                     jobData.getRequiredCourses().stream().map(course -> {
                         if (course.getCourseNumber() != null) {
-                            return courseRepository.findById(course.getCourseNumber()).orElse(course);
+                            return courseRepository.findById(course.getCourseNumber())
+                                    .orElseGet(() -> {
+                                        Course newReqCourse = new Course(
+                                                course.getCourseNumber(),
+                                                course.getCourseName(),
+                                                course.getDescription()
+                                        );
+                                        return courseRepository.save(newReqCourse);
+                                    });
                         }
                         return course;
                     }).collect(java.util.stream.Collectors.toSet())

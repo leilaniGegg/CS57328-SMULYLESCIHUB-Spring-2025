@@ -1,7 +1,7 @@
-package com.example.universityta.services;
+package com.example.ta_ms.services;
 
-import com.example.universityta.entities.JobPosting;
-import com.example.universityta.repositories.JobPostingRepository;
+import com.example.ta_ms.entities.JobPosting;
+import com.example.ta_ms.repositories.JobPostingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.example.universityta.controllers;
+package com.example.ta_ms.controllers;
 
-import com.example.universityta.entities.Course;
-import com.example.universityta.repositories.CourseRepository;
+import com.example.ta_ms.entities.Course;
+import com.example.ta_ms.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

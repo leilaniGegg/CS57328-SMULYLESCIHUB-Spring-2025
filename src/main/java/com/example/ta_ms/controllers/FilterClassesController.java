@@ -1,7 +1,7 @@
-package com.example.universityta.controllers;
+package com.example.ta_ms.controllers;
 
-import com.example.universityta.entities.JobPosting;
-import com.example.universityta.services.JobPostingService;
+import com.example.ta_ms.entities.JobPosting;
+import com.example.ta_ms.services.JobPostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

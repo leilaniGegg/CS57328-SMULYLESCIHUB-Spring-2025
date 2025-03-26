@@ -1,10 +1,25 @@
-package com.example.universityta.entities;
+package com.example.ta_ms.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.HashSet;
+import jakarta.persistence.CascadeType;
+
 
 @Entity
 @Table(name = "job_postings")
@@ -15,19 +30,17 @@ public class JobPosting {
     private int jobid;
 
     private String facultyName;
-    private String facultyEmail; // new field for faculty’s email
+    private String facultyEmail;
 
-    // Use CascadeType.ALL so that if a course is new, it is persisted.
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "course_number", nullable = false)
     private Course course;
 
-    // Cascade persist/merge on required courses as well.
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "jobposting_required_courses",
             joinColumns = @JoinColumn(name = "jobposting_id"),
-            inverseJoinColumns = @JoinColumn(name = "required_course_number")
+            inverseJoinColumns = @JoinColumn(name = "course_number", referencedColumnName = "courseNumber")
     )
     private Set<Course> requiredCourses = new HashSet<>();
 
@@ -47,7 +60,7 @@ public class JobPosting {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date createdDate;
 
-    // Constructors
+// Constructors
     public JobPosting() {
     }
 
