@@ -56,10 +56,6 @@ public class JobPosting {
 
     private String jobDetails;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-    private Date createdDate;
-
 // Constructors
     public JobPosting() {
     }
@@ -69,7 +65,6 @@ public class JobPosting {
         this.facultyEmail = facultyEmail;
         this.course = course;
         this.jobDetails = jobDetails;
-        this.createdDate = createdDate;
     }
 
     // Getters and Setters
@@ -135,14 +130,6 @@ public class JobPosting {
 
     public void setJobDetails(String jobDetails) {
         this.jobDetails = jobDetails;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
     }
 
     // Example entity methods
