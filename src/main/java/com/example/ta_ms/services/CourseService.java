@@ -1,4 +1,4 @@
-package com.example.universityta.services;
+package com.example.ta_ms.services;
 
 import com.example.ta_ms.entities.Course;
 import com.example.ta_ms.repositories.CourseRepository;

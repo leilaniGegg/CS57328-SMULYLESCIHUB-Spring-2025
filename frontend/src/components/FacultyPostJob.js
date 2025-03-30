@@ -30,7 +30,7 @@ const FacultyPostJob = () => {
             description: courseDescriptionAdd
         };
         try {
-            await axios.post('http://localhost:8081/api/courses', courseData, {
+            await axios.post('http://localhost:8080/api/courses', courseData, {
                 headers: { "Content-Type": "application/json" }
             });
             alert('Course added successfully!');
