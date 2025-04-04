@@ -18,7 +18,7 @@ Build the foundational backend and frontend components of the application. Creat
 
 ### Prerequisites
 🔧 Frontend (React)
-- Node.js installed 
+- Node.js installed
 - npm or yarn
 
 ☕ Backend (Spring Boot)
