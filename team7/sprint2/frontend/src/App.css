@@ -1,0 +1,191 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Main App Container */
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Header Section */
+.App-header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 40px 0;
+  font-size: 2rem;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+/* Form Inputs & Buttons */
+input, button, select {
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+select {
+  width: 150px;
+  margin-right: 10px;
+}
+
+input[type="text"] {
+  width: 80%;
+}
+
+/* Job List Section */
+h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-top: 30px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+li strong {
+  font-size: 1.4rem;
+  color: #3498db;
+}
+
+li em {
+  font-style: italic;
+  color: #7f8c8d;
+}
+
+li button {
+  margin-top: 10px;
+  background-color: #e74c3c;
+}
+
+li button:hover {
+  background-color: #c0392b;
+}
+
+/* Search Bar */
+input[type="text"] {
+  padding: 12px 16px;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+select, input[type="text"]:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+  .App-header {
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  input, button, select {
+    width: 100%;
+  }
+
+  .App-logo {
+    display: none;
+  }
+}
+
+/* Job Card Overrides */
+.job-card {
+  padding: 20px;
+  margin: 15px auto;
+  max-width: 600px;
+  text-align: left;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.job-card .job-title {
+  margin: 0 0 10px;
+  color: #2c3e50;
+  font-size: 1.6rem;
+}
+
+.job-card p {
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+.status-tag {
+  font-weight: bold;
+}
+
+/* green for open, red for closed */
+.status-tag.open {
+  color: #27ae60;
+}
+
+.status-tag.closed {
+  color: #e74c3c;
+}
+
+/* button group spacing */
+.job-actions {
+  margin-top: 15px;
+}
+
+.job-actions button {
+  margin-right: 10px;
+}
+
+/* ensure the last button doesn't add extra margin */
+.job-actions button:last-child {
+  margin-right: 0;
+}
